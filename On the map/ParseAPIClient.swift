@@ -80,7 +80,7 @@ class ParseAPIClient: NSObject{
     }
     
     func taskForPostLocation(uniqueKey: String, firstName: String, lastName: String, mapString: String, mediaURL: String, latitude: Double, longitude: Double, completionHandlerForPost: @escaping(_ result: AnyObject?, _ error: String?) -> Void) {
-        let request = NSMutableURLRequest(url: urlGenerator(parameter: nil))
+        let request = NSMutableURLRequest(url: URL(string: "https://parse.udacity.com/parse/classes/StudentLocation")!)
         request.httpMethod = "POST"
         print(request)
         request.addValue(ParseAPIClient.ParseAPIKeyConstants.ApplicationKey, forHTTPHeaderField: ParseAPIClient.ParseAPIKeyConstants.applicationKeyHeader)
@@ -114,8 +114,7 @@ class ParseAPIClient: NSObject{
     }
     
     func taskForPutMethod(objectID: String,uniqueKey: String, firstName: String, lastName: String, mapString: String, mediaURL: String, latitude: Double, longitude: Double, completionHandlerForPost: @escaping (_ result: Bool?, _ error: String?) -> Void) {
-        var urlString = String(describing: urlGenerator(parameter: nil))
-        urlString = urlString + "/\(objectID)"
+        let urlString = "https://parse.udacity.com/parse/classes/StudentLocation/\(objectID)"
         let url = URL(string: urlString)
         let request = NSMutableURLRequest(url: url!)
         print(request)

@@ -37,19 +37,17 @@ class TableViewController: UITableViewController {
             if error == nil{
                 performUIUpdatesOnMain {
                     self.generateTableView.reloadData()
+                    guard let results = data?[ParseAPIClient.ParseAPIConstants.results] as? [[String:AnyObject]] else{
+                        self.displayAlert(error: "Couldn't get results key")
+                        return
+                    }
+                    self.students = ParseAPIClient.ParseModel.studentInformationFromResults(results: results)
                 }
             }else{
                 print(error)
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 self.displayAlert(error: error)
             }
-            
-            guard let results = data?[ParseAPIClient.ParseAPIConstants.results] as? [[String:AnyObject]] else{
-                self.displayAlert(error: "Couldn't get results key")
-                return
-            }
-            
-            self.students = ParseAPIClient.ParseModel.studentInformationFromResults(results: results)
         }
     }
     
