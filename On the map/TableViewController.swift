@@ -9,6 +9,7 @@
 import UIKit
 
 class TableViewController: UITableViewController {
+    @IBOutlet var generateTableView: UITableView!
     var students: [ParseAPIClient.ParseModel]!
 
     override func viewDidLoad() {
@@ -23,7 +24,10 @@ class TableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.refreshView()
-        
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        generateTableView.reloadData()
     }
     func refreshView(){
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
@@ -32,7 +36,7 @@ class TableViewController: UITableViewController {
             print("In taskForGetStudentLocation")
             if error == nil{
                 performUIUpdatesOnMain {
-                    self.tableView.reloadData()
+                    self.generateTableView.reloadData()
                 }
             }else{
                 print(error)

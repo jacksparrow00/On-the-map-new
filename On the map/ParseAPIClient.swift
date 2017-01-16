@@ -15,8 +15,9 @@ class ParseAPIClient: NSObject{
                                       ParseAPIClient.ParseAPIParameterKeys.skip : 0,
                                       ParseAPIClient.ParseAPIParameterKeys.order : "-updatedAt"]
         let request = NSMutableURLRequest(url: urlGenerator(parameter: parameter))
-        request.addValue(ParseAPIClient.ParseAPIKeyConstants.ApplicationKey, forHTTPHeaderField: "X-ParseApplication-Id")
-        request.addValue(ParseAPIClient.ParseAPIKeyConstants.ApiKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
+        print(request)
+        request.addValue(ParseAPIClient.ParseAPIKeyConstants.ApplicationKey, forHTTPHeaderField: ParseAPIClient.ParseAPIKeyConstants.applicationKeyHeader)
+        request.addValue(ParseAPIClient.ParseAPIKeyConstants.ApiKey, forHTTPHeaderField: ParseAPIClient.ParseAPIKeyConstants.apiKeyHeader)
         let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
             func sendError(errorString: String){
                 print(errorString)
@@ -48,9 +49,10 @@ class ParseAPIClient: NSObject{
     func taskForGetLocation(uniqueKey: String,completionForGetLocation: @escaping(_ result: AnyObject?, _ error: String?) -> Void) {
         let urlString = "https://parse.udacity.com/parse/classes/StudentLocation?where=%7B%22uniqueKey%22%3A%22\(uniqueKey)%22%7D"
         let url = URL(string: urlString)
+        print(url)
         let request = NSMutableURLRequest(url: url!)
-        request.addValue(ParseAPIClient.ParseAPIKeyConstants.ApplicationKey, forHTTPHeaderField: "X-Parse-Application-Id")
-        request.addValue(ParseAPIClient.ParseAPIKeyConstants.ApiKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
+        request.addValue(ParseAPIClient.ParseAPIKeyConstants.ApplicationKey, forHTTPHeaderField: ParseAPIClient.ParseAPIKeyConstants.applicationKeyHeader)
+        request.addValue(ParseAPIClient.ParseAPIKeyConstants.ApiKey, forHTTPHeaderField: ParseAPIClient.ParseAPIKeyConstants.apiKeyHeader)
         let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
             func sendError(errorString: String){
                 print(errorString)
@@ -80,9 +82,10 @@ class ParseAPIClient: NSObject{
     func taskForPostLocation(uniqueKey: String, firstName: String, lastName: String, mapString: String, mediaURL: String, latitude: Double, longitude: Double, completionHandlerForPost: @escaping(_ result: AnyObject?, _ error: String?) -> Void) {
         let request = NSMutableURLRequest(url: urlGenerator(parameter: nil))
         request.httpMethod = "POST"
-        request.addValue(ParseAPIClient.ParseAPIKeyConstants.ApplicationKey, forHTTPHeaderField: "X-Parse-Application-Id")
-        request.addValue(ParseAPIClient.ParseAPIKeyConstants.ApiKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
-        request.addValue(ParseAPIClient.ParseAPIKeyConstants.ApplicationJson, forHTTPHeaderField: "Content-Type")
+        print(request)
+        request.addValue(ParseAPIClient.ParseAPIKeyConstants.ApplicationKey, forHTTPHeaderField: ParseAPIClient.ParseAPIKeyConstants.applicationKeyHeader)
+        request.addValue(ParseAPIClient.ParseAPIKeyConstants.ApiKey, forHTTPHeaderField: ParseAPIClient.ParseAPIKeyConstants.apiKeyHeader)
+        request.addValue(ParseAPIClient.ParseAPIKeyConstants.ApplicationJson, forHTTPHeaderField: ParseAPIClient.ParseAPIKeyConstants.contentType)
         request.httpBody = "{\"\(ParseAPIClient.ParseAPIConstants.uniqueKey)\": \"\(uniqueKey)\" , \"\(ParseAPIClient.ParseAPIConstants.firstName)\" : \"\(firstName)\" , \"\(ParseAPIClient.ParseAPIConstants.lastName)\" : \"\(lastName)\" , \"\(ParseAPIClient.ParseAPIConstants.mapString)\" : \"\(mapString)\" , \"\(ParseAPIClient.ParseAPIConstants.mediaURL)\" : \"\(mediaURL)\" , \"\(ParseAPIClient.ParseAPIConstants.latitude)\" :  \(latitude), \"\(ParseAPIClient.ParseAPIConstants.longitude)\" : \(longitude)}".data(using: String.Encoding.utf8)
         
         let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
@@ -115,10 +118,11 @@ class ParseAPIClient: NSObject{
         urlString = urlString + "/\(objectID)"
         let url = URL(string: urlString)
         let request = NSMutableURLRequest(url: url!)
+        print(request)
         request.httpMethod = "PUT"
-        request.addValue(ParseAPIClient.ParseAPIKeyConstants.ApplicationKey, forHTTPHeaderField: "X-Parse-Application-Id")
-        request.addValue(ParseAPIClient.ParseAPIKeyConstants.ApiKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
-        request.addValue(ParseAPIClient.ParseAPIKeyConstants.ApplicationJson, forHTTPHeaderField: "Content-Type")
+        request.addValue(ParseAPIClient.ParseAPIKeyConstants.ApplicationKey, forHTTPHeaderField: ParseAPIClient.ParseAPIKeyConstants.applicationKeyHeader)
+        request.addValue(ParseAPIClient.ParseAPIKeyConstants.ApiKey, forHTTPHeaderField: ParseAPIClient.ParseAPIKeyConstants.apiKeyHeader)
+        request.addValue(ParseAPIClient.ParseAPIKeyConstants.ApplicationJson, forHTTPHeaderField: ParseAPIClient.ParseAPIKeyConstants.contentType)
         request.httpBody = "{\"\(ParseAPIClient.ParseAPIConstants.uniqueKey)\": \"\(uniqueKey)\" , \"\(ParseAPIClient.ParseAPIConstants.firstName)\" : \"\(firstName)\" , \"\(ParseAPIClient.ParseAPIConstants.lastName)\" : \"\(lastName)\" , \"\(ParseAPIClient.ParseAPIConstants.mapString)\" : \"\(mapString)\" , \"\(ParseAPIClient.ParseAPIConstants.mediaURL)\" : \"\(mediaURL)\" , \"\(ParseAPIClient.ParseAPIConstants.latitude)\" :  \(latitude), \"\(ParseAPIClient.ParseAPIConstants.longitude)\" : \(longitude)}".data(using: String.Encoding.utf8)
         
         let task = session.dataTask(with: request as URLRequest) { (data, response, error) in

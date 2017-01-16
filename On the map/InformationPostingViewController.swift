@@ -32,13 +32,13 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate,MK
     }
     
     func configureUI(enable: Bool){
-        linkTextfield.isHidden = !enable
-        whereAreYouLabel.isHidden = enable
-        studyingLabel.isHidden = enable
-        mapViewOutlet.isHidden = !enable
-        submitButton.isHidden = !enable
-        findOnTheMapButton.isHidden = enable
-        locationTextfield.isHidden = enable
+        linkTextfield.isHidden = enable
+        whereAreYouLabel.isHidden = !enable
+        studyingLabel.isHidden = !enable
+        mapViewOutlet.isHidden = enable
+        submitButton.isHidden = enable
+        findOnTheMapButton.isHidden = !enable
+        locationTextfield.isHidden = !enable
     }
     
     func cancelButton(){
@@ -51,32 +51,35 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate,MK
             displayAlert(error: "Please enter a location")
             return
         }
-        
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        let geocoder = CLGeocoder()
-        geocoder.geocodeAddressString(locationTextfield.text!) { (results, error) in
-            print("Geocoding address")
-            guard error == nil else{
-                UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                self.displayAlert(error: "Sorry there was an error with your request")
-                return
+        performUIUpdatesOnMain {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+            let geocoder = CLGeocoder()
+            geocoder.geocodeAddressString(self.locationTextfield.text!) { (results, error) in
+                print("Geocoding address")
+                guard error == nil else{
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                    self.displayAlert(error: "Sorry there was an error with your request")
+                    return
+                }
+                
+                guard (results?.isEmpty) == false else{
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                    self.displayAlert(error: "Sorry we couldn't find the specified location")
+                    return
+                }
+                
+                self.pinPlace = results![0]
+                self.configureUI(enable: false)
+                self.mapViewOutlet.showAnnotations([MKPlacemark(placemark: self.pinPlace)] , animated: true)
+                
+                if userModel.mediaURL.isEmpty == false{
+                    self.linkTextfield.text = userModel.mediaURL
+                }
             }
-            
-            guard (results?.isEmpty) == false else{
-                UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                self.displayAlert(error: "Sorry we couldn't find the specified location")
-                return
-            }
-            
-            self.pinPlace = results![0]
-            self.configureUI(enable: false)
-            self.mapViewOutlet.showAnnotations([MKPlacemark(placemark: self.pinPlace)] , animated: true)
-            
-            if userModel.mediaURL.isEmpty == false{
-                self.linkTextfield.text = userModel.mediaURL
-            }
-        }
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        }
+        
+        
     }
     
     func postStatus(){
@@ -114,6 +117,7 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate,MK
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
             ParseAPIClient.sharedInstance().taskForPutMethod(objectID: userModel.objectID, uniqueKey: userModel.userKey, firstName: userModel.firstName, lastName: userModel.lastName, mapString: locationTextfield.text!, mediaURL: linkTextfield.text!, latitude: (self.pinPlace.location?.coordinate.latitude)!, longitude: (self.pinPlace.location?.coordinate.longitude)!, completionHandlerForPost: { (success, error) in
                 print("In taskForPutMethod")
+                print(userModel.objectID)
                 if success! {
                     UIApplication.shared.isNetworkActivityIndicatorVisible = false
                     self.enterData()

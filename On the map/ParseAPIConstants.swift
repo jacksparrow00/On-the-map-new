@@ -11,7 +11,7 @@ extension ParseAPIClient{
     struct ParseAPIConstants{
         static let results = "results"
         static let firstName = "firstName"
-        static let lastName = "lastname"
+        static let lastName = "lastName"
         static let objectId = "objectId"
         static let uniqueKey = "uniqueKey"
         static let mapString = "mapString"
@@ -29,6 +29,9 @@ extension ParseAPIClient{
         static let ApiHost = "parse.udacity.com"
         static let ApiPath = "/parse/classes/StudentLocation"
         static let ApplicationJson = "application/json"
+        static let applicationKeyHeader = "X-Parse-Application-Id"
+        static let apiKeyHeader = "X-Parse-REST-API-Key"
+        static let contentType = "Content-Type"
     }
     
     struct ParseAPIParameterKeys{

@@ -10,11 +10,11 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--List-->
+        <!--Map-->
         <scene sceneID="XUk-vB-lJZ">
             <objects>
                 <navigationController id="15h-Lv-5bQ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="List" image="list" id="kji-kL-axg"/>
+                    <tabBarItem key="tabBarItem" title="Map" image="map" id="kji-kL-axg"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="hba-FU-C3J">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -85,7 +85,7 @@
                                 <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="X9h-kf-ISq">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Insert your link here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="X9h-kf-ISq">
                                 <rect key="frame" x="16" y="51" width="343" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -118,7 +118,7 @@
                                 </connections>
                             </button>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Byn-hB-UrJ">
-                                <rect key="frame" x="0.0" y="220" width="375" height="447"/>
+                                <rect key="frame" x="0.0" y="220" width="375" height="312"/>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" red="0.76199041199999995" green="0.79553154459999997" blue="0.99956376899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -128,7 +128,7 @@
                             <constraint firstItem="DRQ-BA-pW3" firstAttribute="top" secondItem="U22-Dp-SUF" secondAttribute="bottom" constant="150" id="4Ub-l2-2cp"/>
                             <constraint firstItem="gTU-6H-gxz" firstAttribute="top" secondItem="5g6-aA-OlC" secondAttribute="bottom" constant="51" id="4mQ-ww-yEw"/>
                             <constraint firstItem="DRQ-BA-pW3" firstAttribute="leading" secondItem="maf-dU-ZOp" secondAttribute="leadingMargin" id="4uT-ID-niF"/>
-                            <constraint firstItem="gTU-6H-gxz" firstAttribute="top" secondItem="Byn-hB-UrJ" secondAttribute="bottom" id="52l-S5-gtA"/>
+                            <constraint firstItem="gTU-6H-gxz" firstAttribute="top" secondItem="Byn-hB-UrJ" secondAttribute="bottom" constant="135" id="52l-S5-gtA"/>
                             <constraint firstAttribute="trailingMargin" secondItem="DRQ-BA-pW3" secondAttribute="trailing" id="FS3-ho-CTY"/>
                             <constraint firstItem="5g6-aA-OlC" firstAttribute="leading" secondItem="maf-dU-ZOp" secondAttribute="leadingMargin" constant="70" id="LMO-Xu-iL0"/>
                             <constraint firstItem="5g6-aA-OlC" firstAttribute="top" secondItem="U22-Dp-SUF" secondAttribute="bottom" constant="566" id="LNS-sN-z7N"/>
@@ -277,18 +277,18 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Wbc-sz-bWk" id="N3T-D5-fNa">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="LiT-bG-kag">
-                                            <rect key="frame" x="15" y="5" width="33.5" height="20.5"/>
+                                            <rect key="frame" x="15" y="4" width="34" height="21"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JXc-iN-rUh">
-                                            <rect key="frame" x="15" y="25.5" width="44" height="14.5"/>
+                                            <rect key="frame" x="15" y="25" width="44" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <nil key="textColor"/>
@@ -304,16 +304,19 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Root View Controller" id="aJG-hH-LTm"/>
+                    <connections>
+                        <outlet property="generateTableView" destination="tnI-ZC-42q" id="HKz-7h-PLl"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6yN-2j-ILK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1694" y="801"/>
         </scene>
-        <!--Map-->
+        <!--List-->
         <scene sceneID="mTx-8Q-KaD">
             <objects>
                 <navigationController id="cpD-NA-y1b" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Map" image="map" id="2Mk-Kb-cdL"/>
+                    <tabBarItem key="tabBarItem" title="List" image="list" id="2Mk-Kb-cdL"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="fgl-Y0-Unj">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

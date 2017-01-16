@@ -93,6 +93,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 if error == nil {
                     self.mapView.removeAnnotations(self.mapView.annotations)
                     guard let results = data?[ParseAPIClient.ParseAPIConstants.results] as? [[String:AnyObject]] else{
+                        print(data)
                         self.displayAlert(error: "Couldn't get results key")
                         return
                     }
@@ -149,6 +150,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
         
         mapView.addAnnotations(annotations)
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
