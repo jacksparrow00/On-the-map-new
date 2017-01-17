@@ -8,9 +8,8 @@
 
 import UIKit
 
-class TableViewController: UITableViewController, mapViewControllerDelegate {
+class TableViewController: UITableViewController {
     @IBOutlet var generateTableView: UITableView!
-    internal var students: [ParseAPIClient.ParseModel] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +42,7 @@ class TableViewController: UITableViewController, mapViewControllerDelegate {
                         self.displayAlert(error: "Couldn't get results key")
                         return
                     }
-                    self.students = ParseAPIClient.ParseModel.studentInformationFromResults(results: results)           //make an array of the individual student objects
+                    StudentShared.sharedInstance.students = ParseAPIClient.ParseModel.studentInformationFromResults(results: results)           //make an array of the individual student objects
                     UIApplication.shared.isNetworkActivityIndicatorVisible = false
                     
                     self.generateTableView.reloadData()
@@ -84,12 +83,12 @@ class TableViewController: UITableViewController, mapViewControllerDelegate {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        print(students.count)
-        return students.count                       //number of rows required to create table cells
+        print(StudentShared.sharedInstance.students.count)
+        return StudentShared.sharedInstance.students.count                       //number of rows required to create table cells
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let student = students[indexPath.row]                                                               //data to show in the table cells
+        let student = StudentShared.sharedInstance.students[indexPath.row]                                                               //data to show in the table cells
         let cell = tableView.dequeueReusableCell(withIdentifier: "NewCell", for: indexPath)
         cell.textLabel?.text = student.firstName + " " + student.lastName
         cell.detailTextLabel?.text = student.mapString
@@ -100,7 +99,13 @@ class TableViewController: UITableViewController, mapViewControllerDelegate {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         /*UIApplication.shared.open(URL(string: students[indexPath.row].mediaURL)!, options: [:], completionHandler: nil)*/
-        let student = students[(indexPath as NSIndexPath).row]                      //a little help is required here. I just can't figure out how to make this work. I have tried many things but it just doesn't work. A little help with this will be appreciated.
+        let student = StudentShared.sharedInstance.students[(indexPath as NSIndexPath).row]
+        
+        
+        //a little help is required here. I just can't figure out how to make this work. I have tried many things but it just doesn't work. A little help with this will be appreciated.
+        
+        
+        
         if let url = URL(string: student.mediaURL){
             if UIApplication.shared.canOpenURL(url){
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)

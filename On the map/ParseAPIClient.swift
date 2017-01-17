@@ -32,10 +32,10 @@ class ParseAPIClient: NSObject{
                 return
             }
             
-            guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode < 300 else{
+            /*guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode < 300 else{
                 sendError(errorString: "Your request returned status code other than 2xx")
                 return
-            }
+            }*/
             
             guard let data = data else{
                 sendError(errorString: "Your request did not return any data")
@@ -68,10 +68,10 @@ class ParseAPIClient: NSObject{
                 return
             }
             
-            guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode < 300 else{
+            /*guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode < 300 else{
                 sendError(errorString: "Your request returned status code other than 2xx")
                 return
-            }
+            }*/
             
             guard let data = data else{
                 sendError(errorString: "Your request did not return any data")
@@ -105,10 +105,10 @@ class ParseAPIClient: NSObject{
                 return
             }
             
-            guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode < 300 else{
+            /*guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode < 300 else{
                 sendError(errorString: "Your request returned status code other than 2xx")
                 return
-            }
+            }*/
             
             guard let data = data else{
                 sendError(errorString: "Your request did not return any data")

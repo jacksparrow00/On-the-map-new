@@ -32,14 +32,14 @@ class UdacityAPIClient: NSObject{
                 return
             }
             
-            if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode < 300{
+            /*if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode < 300{
                 sendError(errorString: "Your request returned a status code other than 2xx")
                 print(error?.localizedDescription)
                 print(statusCode)
                 return
             }else{
                 print("status code is 2xx")
-            }
+            }*/
             
             guard let data = data else{
                 sendError(errorString: "Your request didn't return any data")
@@ -83,10 +83,10 @@ class UdacityAPIClient: NSObject{
                 return
             }
             
-            guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode < 300 else{
+            /*guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode < 300 else{
                 sendError(errorString: "Your request returned a status code other than 2xx")
                 return
-            }
+            }*/
             
             guard let data = data else{
                 sendError(errorString: "Your request didn't return any data")
@@ -130,10 +130,10 @@ class UdacityAPIClient: NSObject{
                 return
             }
             
-            guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode < 300 else{
+            /*guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode < 300 else{
                 sendError(errorString: "Your request returned a status code other than 2xx")
                 return
-            }
+            }*/
             
             guard let data = data else{
                 sendError(errorString: "Your request didn't return any data")

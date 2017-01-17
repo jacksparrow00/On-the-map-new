@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6B06DCF21E2EA4A100574216 /* StudentShared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B06DCF11E2EA4A100574216 /* StudentShared.swift */; };
 		6B0F0EA51E1D0FCD008D3E9D /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B0F0EA41E1D0FCD008D3E9D /* TableViewController.swift */; };
 		6B0F55511E1B8A2B00DCCA24 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B0F55501E1B8A2B00DCCA24 /* UserModel.swift */; };
 		6B1334DF1E20157A00957255 /* InformationPostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1334DE1E20157A00957255 /* InformationPostingViewController.swift */; };
@@ -44,6 +45,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6B06DCF11E2EA4A100574216 /* StudentShared.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentShared.swift; sourceTree = "<group>"; };
 		6B0F0EA41E1D0FCD008D3E9D /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		6B0F55501E1B8A2B00DCCA24 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		6B1334DE1E20157A00957255 /* InformationPostingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InformationPostingViewController.swift; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 				6BB141481E12BDC4003512FE /* Udacity API */,
 				6B1E6AAE1E112E32002EF472 /* Parse API */,
 				6B0F55501E1B8A2B00DCCA24 /* UserModel.swift */,
+				6B06DCF11E2EA4A100574216 /* StudentShared.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -321,6 +324,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B06DCF21E2EA4A100574216 /* StudentShared.swift in Sources */,
 				6BB1414E1E13BE0D003512FE /* GCDBlackBox.swift in Sources */,
 				6B1E6A831E112DA0002EF472 /* LoginViewController.swift in Sources */,
 				6B1E6A811E112DA0002EF472 /* AppDelegate.swift in Sources */,

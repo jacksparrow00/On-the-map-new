@@ -10,8 +10,7 @@ import UIKit
 import Foundation
 import MapKit
 
-class MapViewController: UIViewController, MKMapViewDelegate,mapViewControllerDelegate {
-    internal var students: [ParseAPIClient.ParseModel] = []
+class MapViewController: UIViewController, MKMapViewDelegate {
 
     
     @IBOutlet weak var mapView: MKMapView!
@@ -100,7 +99,7 @@ class MapViewController: UIViewController, MKMapViewDelegate,mapViewControllerDe
                         return
                     }
                     
-                    self.students = ParseAPIClient.ParseModel.studentInformationFromResults(results: results)
+                    StudentShared.sharedInstance.students = ParseAPIClient.ParseModel.studentInformationFromResults(results: results)
                     self.reAnnotateMap()
                     UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 }else{
@@ -138,7 +137,7 @@ class MapViewController: UIViewController, MKMapViewDelegate,mapViewControllerDe
         var annotations = [MKPointAnnotation]()
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
-        for student in students{
+        for student in StudentShared.sharedInstance.students {
             let studentLatitude = CLLocationDegrees(student.latitude)
             let studentLongitude = CLLocationDegrees(student.longitude)
             let coordinates = CLLocationCoordinate2D(latitude: studentLatitude, longitude: studentLongitude)
@@ -171,7 +170,14 @@ class MapViewController: UIViewController, MKMapViewDelegate,mapViewControllerDe
     }
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        if control == view.rightCalloutAccessoryView{               //a little help is required here. I just can't figure out how to make this work. I have tried many things but it just doesn't work. A little help with this will be appreciated.
+        if control == view.rightCalloutAccessoryView{
+            
+            
+            
+            //a little help is required here. I just can't figure out how to make this work. I have tried many things but it just doesn't work. A little help with this will be appreciated.
+            
+            
+            
             if let open = view.annotation?.subtitle{
          if let url = URL(string: open!){
          if UIApplication.shared.canOpenURL(url){
@@ -188,9 +194,5 @@ class MapViewController: UIViewController, MKMapViewDelegate,mapViewControllerDe
             }
         }
     }
-}
-
-protocol mapViewControllerDelegate {
-    var students: [ParseAPIClient.ParseModel] {get set}
 }
 
