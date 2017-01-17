@@ -11,6 +11,8 @@ class ParseAPIClient: NSObject{
     let session = URLSession.shared
     
     func taskForGetStudentLocation(completionForGetStudentLocation: @escaping(_ result: AnyObject?,_ error: String?) -> Void) {
+        
+        //to get udacity students locations
         let parameter:[String:Any] = [ParseAPIClient.ParseAPIParameterKeys.limit : 100,
                                       ParseAPIClient.ParseAPIParameterKeys.skip : 0,
                                       ParseAPIClient.ParseAPIParameterKeys.order : "-updatedAt"]
@@ -30,10 +32,10 @@ class ParseAPIClient: NSObject{
                 return
             }
             
-            /*guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode < 300 else{
+            guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode < 300 else{
                 sendError(errorString: "Your request returned status code other than 2xx")
                 return
-            }*/
+            }
             
             guard let data = data else{
                 sendError(errorString: "Your request did not return any data")
@@ -47,6 +49,8 @@ class ParseAPIClient: NSObject{
     }
     
     func taskForGetLocation(uniqueKey: String,completionForGetLocation: @escaping(_ result: AnyObject?, _ error: String?) -> Void) {
+        
+        //to get current user location
         let urlString = "https://parse.udacity.com/parse/classes/StudentLocation?where=%7B%22uniqueKey%22%3A%22\(uniqueKey)%22%7D"
         let url = URL(string: urlString)
         print(url)
@@ -64,10 +68,10 @@ class ParseAPIClient: NSObject{
                 return
             }
             
-            /*guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode < 300 else{
+            guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode < 300 else{
                 sendError(errorString: "Your request returned status code other than 2xx")
                 return
-            }*/
+            }
             
             guard let data = data else{
                 sendError(errorString: "Your request did not return any data")
@@ -80,6 +84,8 @@ class ParseAPIClient: NSObject{
     }
     
     func taskForPostLocation(uniqueKey: String, firstName: String, lastName: String, mapString: String, mediaURL: String, latitude: Double, longitude: Double, completionHandlerForPost: @escaping(_ result: AnyObject?, _ error: String?) -> Void) {
+        
+        //post your location
         let request = NSMutableURLRequest(url: URL(string: "https://parse.udacity.com/parse/classes/StudentLocation")!)
         request.httpMethod = "POST"
         print(request)
@@ -99,10 +105,10 @@ class ParseAPIClient: NSObject{
                 return
             }
             
-            /*guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode < 300 else{
+            guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode < 300 else{
                 sendError(errorString: "Your request returned status code other than 2xx")
                 return
-            }*/
+            }
             
             guard let data = data else{
                 sendError(errorString: "Your request did not return any data")
@@ -114,6 +120,8 @@ class ParseAPIClient: NSObject{
     }
     
     func taskForPutMethod(objectID: String,uniqueKey: String, firstName: String, lastName: String, mapString: String, mediaURL: String, latitude: Double, longitude: Double, completionHandlerForPost: @escaping (_ result: Bool?, _ error: String?) -> Void) {
+        
+        //update your location
         let urlString = "https://parse.udacity.com/parse/classes/StudentLocation/\(objectID)"
         let url = URL(string: urlString)
         let request = NSMutableURLRequest(url: url!)
@@ -149,7 +157,7 @@ class ParseAPIClient: NSObject{
         task.resume()
     }
     
-    private func urlGenerator(parameter:[String:Any]?) -> URL{
+    private func urlGenerator(parameter:[String:Any]?) -> URL{      //to generate urls for the above methods
         var components = URLComponents()
         components.scheme = ParseAPIClient.ParseAPIKeyConstants.ApiScheme
         components.host = ParseAPIClient.ParseAPIKeyConstants.ApiHost
@@ -182,7 +190,7 @@ class ParseAPIClient: NSObject{
         }
     }*/
     
-    private func convertDataWithCompletionHandler(data: Data, completionHandlerForConvertData: (_ result: AnyObject?, _ error: String?) -> Void){
+    private func convertDataWithCompletionHandler(data: Data, completionHandlerForConvertData: (_ result: AnyObject?, _ error: String?) -> Void){       //parse data into JSON
         var parsedResult:AnyObject!
         do{
             parsedResult = try! JSONSerialization.jsonObject(with: data, options: .allowFragments) as AnyObject!

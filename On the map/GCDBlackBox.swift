@@ -8,7 +8,7 @@
 
 import Foundation
 
-func performUIUpdatesOnMain( updates: @escaping() -> Void) {
+func performUIUpdatesOnMain( updates: @escaping() -> Void) { //to perform UI updates
     DispatchQueue.main.async {
         updates()
     }

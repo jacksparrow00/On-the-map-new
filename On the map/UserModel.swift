@@ -8,7 +8,7 @@
 
 import Foundation
 struct userModel {
-    
+    //to store user data
     static var firstName = ""
     static var lastName = ""
     static var userKey = ""

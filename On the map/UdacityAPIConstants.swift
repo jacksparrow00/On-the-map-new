@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension UdacityAPIClient{
+extension UdacityAPIClient{         //constants for the Udacity api
     struct UdacityAPIConstants {
         static let signUpURL = "https://www.udacity.com/account/auth#!/signup"
         static let value = "application/json"

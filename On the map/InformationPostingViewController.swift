@@ -21,14 +21,15 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate,MK
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelButton))
+        
+        //I think these are not required. Just let me know :)
         setDelegate(linkTextfield)
         setDelegate(locationTextfield)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        configureUI(enable: true)
+        configureUI(enable: true)                   //to configure the view when the view appears at first.
     }
     
     func configureUI(enable: Bool){
@@ -41,18 +42,22 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate,MK
         locationTextfield.isHidden = !enable
     }
     
-    func cancelButton(){
+    @IBAction func cancelButton(_ sender: Any) {
+        
+        //brings back to map view controller
         dismiss(animated: true, completion: nil)
     }
     
     func getLocation(){
         print("Getting location")
-        guard locationTextfield.text != nil else{
+        guard locationTextfield.text != nil else{               //checks whether the location is entered or not
             displayAlert(error: "Please enter a location")
             return
         }
         performUIUpdatesOnMain {
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
+            
+            //start geocoding the string mentioned for location
             let geocoder = CLGeocoder()
             geocoder.geocodeAddressString(self.locationTextfield.text!) { (results, error) in
                 print("Geocoding address")
@@ -62,7 +67,7 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate,MK
                     return
                 }
                 
-                guard (results?.isEmpty) == false else{
+                guard (results?.isEmpty) == false else{                 //find whether there is any data recieved
                     UIApplication.shared.isNetworkActivityIndicatorVisible = false
                     self.displayAlert(error: "Sorry we couldn't find the specified location")
                     return
@@ -70,7 +75,7 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate,MK
                 
                 self.pinPlace = results![0]
                 self.configureUI(enable: false)
-                self.mapViewOutlet.showAnnotations([MKPlacemark(placemark: self.pinPlace)] , animated: true)
+                self.mapViewOutlet.showAnnotations([MKPlacemark(placemark: self.pinPlace)] , animated: true)        //annotate the map according to the location specified
                 
                 if userModel.mediaURL.isEmpty == false{
                     self.linkTextfield.text = userModel.mediaURL
@@ -84,13 +89,15 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate,MK
     
     func postStatus(){
         print("Posting status")
-        guard linkTextfield.text != nil else{
+        guard linkTextfield.text != nil else{               //check whether the link is entered or not
             displayAlert(error: "Please enter a link")
             return
         }
         
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
+        
+        //if the user already has an objectID then use taskForPUTMethod otherwise use taskForPostLocation
         if userModel.objectID.isEmpty {
             ParseAPIClient.sharedInstance().taskForPostLocation(uniqueKey: userModel.userKey, firstName: userModel.firstName, lastName: userModel.lastName, mapString: locationTextfield.text!, mediaURL: linkTextfield.text!, latitude: (self.pinPlace.location?.coordinate.latitude)!, longitude: (self.pinPlace.location?.coordinate.longitude)!, completionHandlerForPost: { (data, error) in
                 print("In taskForPostLocation")
@@ -114,7 +121,6 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate,MK
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
             })
         }else{
-            UIApplication.shared.isNetworkActivityIndicatorVisible = true
             ParseAPIClient.sharedInstance().taskForPutMethod(objectID: userModel.objectID, uniqueKey: userModel.userKey, firstName: userModel.firstName, lastName: userModel.lastName, mapString: locationTextfield.text!, mediaURL: linkTextfield.text!, latitude: (self.pinPlace.location?.coordinate.latitude)!, longitude: (self.pinPlace.location?.coordinate.longitude)!, completionHandlerForPost: { (success, error) in
                 print("In taskForPutMethod")
                 print(userModel.objectID)
@@ -135,6 +141,8 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate,MK
     
     func enterData(){
         print("entering data")
+        
+        //save the data till the app runs
         userModel.latitude = (self.pinPlace.location?.coordinate.latitude)!
         userModel.longitude = (self.pinPlace.location?.coordinate.longitude)!
         

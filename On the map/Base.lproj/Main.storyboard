@@ -27,7 +27,7 @@
             </objects>
             <point key="canvasLocation" x="746" y="69"/>
         </scene>
-        <!--List-->
+        <!--Map View-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="MapViewController" customModule="On_the_map" customModuleProvider="target" sceneMemberID="viewController">
@@ -52,7 +52,7 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="List" image="list" id="UkZ-Wd-XBn"/>
-                    <navigationItem key="navigationItem" id="1Nk-0l-qbo"/>
+                    <navigationItem key="navigationItem" title="Map View" id="1Nk-0l-qbo"/>
                     <connections>
                         <outlet property="mapView" destination="Jjs-dC-gI7" id="xic-Dc-jTf"/>
                     </connections>
@@ -120,6 +120,15 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Byn-hB-UrJ">
                                 <rect key="frame" x="0.0" y="220" width="375" height="312"/>
                             </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Sc-V9-Teo">
+                                <rect key="frame" x="308" y="20" width="51" height="30"/>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancelButton:" destination="gMi-8c-fhL" eventType="touchUpInside" id="Mfu-Xf-56H"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.76199041199999995" green="0.79553154459999997" blue="0.99956376899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -129,12 +138,16 @@
                             <constraint firstItem="gTU-6H-gxz" firstAttribute="top" secondItem="5g6-aA-OlC" secondAttribute="bottom" constant="51" id="4mQ-ww-yEw"/>
                             <constraint firstItem="DRQ-BA-pW3" firstAttribute="leading" secondItem="maf-dU-ZOp" secondAttribute="leadingMargin" id="4uT-ID-niF"/>
                             <constraint firstItem="gTU-6H-gxz" firstAttribute="top" secondItem="Byn-hB-UrJ" secondAttribute="bottom" constant="135" id="52l-S5-gtA"/>
+                            <constraint firstItem="gTU-6H-gxz" firstAttribute="top" secondItem="8Sc-V9-Teo" secondAttribute="bottom" constant="617" id="6Ie-oL-iWk"/>
+                            <constraint firstItem="8Sc-V9-Teo" firstAttribute="top" secondItem="U22-Dp-SUF" secondAttribute="bottom" id="6gH-94-QKh"/>
                             <constraint firstAttribute="trailingMargin" secondItem="DRQ-BA-pW3" secondAttribute="trailing" id="FS3-ho-CTY"/>
                             <constraint firstItem="5g6-aA-OlC" firstAttribute="leading" secondItem="maf-dU-ZOp" secondAttribute="leadingMargin" constant="70" id="LMO-Xu-iL0"/>
                             <constraint firstItem="5g6-aA-OlC" firstAttribute="top" secondItem="U22-Dp-SUF" secondAttribute="bottom" constant="566" id="LNS-sN-z7N"/>
                             <constraint firstItem="doS-7a-HyR" firstAttribute="centerX" secondItem="maf-dU-ZOp" secondAttribute="centerX" id="RMQ-kv-mZ8"/>
                             <constraint firstItem="gTU-6H-gxz" firstAttribute="top" secondItem="DRQ-BA-pW3" secondAttribute="bottom" constant="467" id="V8N-DR-58N"/>
+                            <constraint firstItem="8Sc-V9-Teo" firstAttribute="leading" secondItem="maf-dU-ZOp" secondAttribute="leadingMargin" constant="292" id="YXS-Gy-Hae"/>
                             <constraint firstItem="gTU-6H-gxz" firstAttribute="top" secondItem="EmX-7a-cLE" secondAttribute="bottom" constant="89" id="bhx-xZ-zeT"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="8Sc-V9-Teo" secondAttribute="trailing" id="d5n-T9-c8S"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Byn-hB-UrJ" secondAttribute="trailing" constant="-16" id="f1v-e9-Oy7"/>
                             <constraint firstAttribute="trailingMargin" secondItem="EmX-7a-cLE" secondAttribute="trailing" constant="125" id="gKk-fu-WPt"/>
                             <constraint firstItem="gTU-6H-gxz" firstAttribute="top" secondItem="X9h-kf-ISq" secondAttribute="bottom" constant="586" id="gcj-2T-w8e"/>
@@ -264,7 +277,7 @@
             </objects>
             <point key="canvasLocation" x="-177" y="413"/>
         </scene>
-        <!--Root View Controller-->
+        <!--Table view-->
         <scene sceneID="qIQ-pq-ISO">
             <objects>
                 <tableViewController id="WHb-0L-8Ya" customClass="TableViewController" customModule="On_the_map" customModuleProvider="target" sceneMemberID="viewController">
@@ -303,7 +316,7 @@
                             <outlet property="delegate" destination="WHb-0L-8Ya" id="bvM-t5-FF5"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="aJG-hH-LTm"/>
+                    <navigationItem key="navigationItem" title="Table view" id="aJG-hH-LTm"/>
                     <connections>
                         <outlet property="generateTableView" destination="tnI-ZC-42q" id="HKz-7h-PLl"/>
                     </connections>

@@ -8,7 +8,7 @@
 
 import Foundation
 extension ParseAPIClient{
-    struct ParseModel{
+    struct ParseModel{          //parameters required for students locations
         var firstName : String
         var lastName : String
         var objectId : String
@@ -18,7 +18,7 @@ extension ParseAPIClient{
         var latitude : Double
         var longitude : Double
     
-        init?(dictionary: [String:AnyObject]){
+        init?(dictionary: [String:AnyObject]){          //initialize them
             guard let firstname = dictionary[ParseAPIClient.ParseAPIConstants.firstName] as? String else{
                 return nil
             }
@@ -60,7 +60,7 @@ extension ParseAPIClient{
             longitude = long
         }
     
-        static func studentInformationFromResults(results: [[String:AnyObject]]) -> [ParseModel]{
+        static func studentInformationFromResults(results: [[String:AnyObject]]) -> [ParseModel]{           //add them into an array
             var students = [ParseModel]()
             
             for student in results{

@@ -7,7 +7,7 @@
 //
 
 import Foundation
-extension ParseAPIClient{
+extension ParseAPIClient{               //constants for parse api
     struct ParseAPIConstants{
         static let results = "results"
         static let firstName = "firstName"

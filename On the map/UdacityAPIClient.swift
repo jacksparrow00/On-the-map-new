@@ -12,6 +12,8 @@ class UdacityAPIClient: NSObject{
     var session = URLSession.shared
     
     func taskForPostmethod( username: String, password: String, completionHandlerForPost : @escaping (_ result: AnyObject?, _ error: String?) -> Void){
+        
+        //to login into udacity
         let request = NSMutableURLRequest(url: URL(string: "https://www.udacity.com/api/session")!)
         request.httpMethod = "POST"
         request.addValue(UdacityAPIClient.UdacityAPIConstants.value, forHTTPHeaderField: "Accept")
@@ -30,14 +32,14 @@ class UdacityAPIClient: NSObject{
                 return
             }
             
-            /*if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode < 300{
+            if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode < 300{
                 sendError(errorString: "Your request returned a status code other than 2xx")
                 print(error?.localizedDescription)
                 print(statusCode)
                 return
             }else{
                 print("status code is 2xx")
-            }*/
+            }
             
             guard let data = data else{
                 sendError(errorString: "Your request didn't return any data")
@@ -53,6 +55,8 @@ class UdacityAPIClient: NSObject{
     }
     
     func taskForDeleteMethod(completionForDeleteMethod: @escaping(_ result: Bool?, _ error: String?) -> Void){
+        
+        //to log out of udacity
         let request = NSMutableURLRequest(url: URL(string: "https://www.udacity.com/api/session")!)
         request.httpMethod = "DELETE"
         var xsrfCookie: HTTPCookie? = nil
@@ -79,10 +83,10 @@ class UdacityAPIClient: NSObject{
                 return
             }
             
-            /*guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode < 300 else{
+            guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode < 300 else{
                 sendError(errorString: "Your request returned a status code other than 2xx")
                 return
-            }*/
+            }
             
             guard let data = data else{
                 sendError(errorString: "Your request didn't return any data")
@@ -97,7 +101,7 @@ class UdacityAPIClient: NSObject{
         task.resume()
     }
     
-    private func convertDataWithCompletionHandler(data: Data, completionHandlerForConvertData: (_ result: AnyObject?, _ error: String?) -> Void){
+    private func convertDataWithCompletionHandler(data: Data, completionHandlerForConvertData: (_ result: AnyObject?, _ error: String?) -> Void){       //parse the data into JSON
         var parsedResult:AnyObject!
         do{
             parsedResult = try! JSONSerialization.jsonObject(with: data, options: .allowFragments) as AnyObject!
@@ -110,6 +114,8 @@ class UdacityAPIClient: NSObject{
 
     
     func taskForGetData(userId: String, completionHandlerForGetData: @escaping(_ result: AnyObject?, _ error: String?) -> Void ){
+        
+        //get user data from udacity
         let request = NSMutableURLRequest(url: URL(string: "https://www.udacity.com/api/users/\(userId)")!)
         let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
             func sendError(errorString: String){
@@ -124,10 +130,10 @@ class UdacityAPIClient: NSObject{
                 return
             }
             
-            /*guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode < 300 else{
+            guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode < 300 else{
                 sendError(errorString: "Your request returned a status code other than 2xx")
                 return
-            }*/
+            }
             
             guard let data = data else{
                 sendError(errorString: "Your request didn't return any data")

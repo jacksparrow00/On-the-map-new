@@ -10,8 +10,10 @@ import UIKit
 import Foundation
 import MapKit
 
-class MapViewController: UIViewController, MKMapViewDelegate {
-    var students: [ParseAPIClient.ParseModel]!
+class MapViewController: UIViewController, MKMapViewDelegate,mapViewControllerDelegate {
+    internal var students: [ParseAPIClient.ParseModel] = []
+
+    
     @IBOutlet weak var mapView: MKMapView!
 
     override func viewDidLoad() {
@@ -169,10 +171,26 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        if control == view.rightCalloutAccessoryView{
+        if control == view.rightCalloutAccessoryView{               //a little help is required here. I just can't figure out how to make this work. I have tried many things but it just doesn't work. A little help with this will be appreciated.
             if let open = view.annotation?.subtitle{
-                UIApplication.shared.open(URL(string: open!)!, options: [:], completionHandler: nil)
+         if let url = URL(string: open!){
+         if UIApplication.shared.canOpenURL(url){
+         UIApplication.shared.open(url, options: [:], completionHandler: nil)
+         }else{
+         self.displayAlert(error: "URL can't be opened.")
+         }
+         }else{
+         self.displayAlert(error: "URL can't be opened.")
+         }
+        var urlString = view.annotation?.subtitle!
+        let url = URL(string: urlString!)
+        UIApplication.shared.open(url!, options: [:], completionHandler: nil)
             }
         }
     }
 }
+
+protocol mapViewControllerDelegate {
+    var students: [ParseAPIClient.ParseModel] {get set}
+}
+
