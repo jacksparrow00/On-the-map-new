@@ -22,6 +22,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         self.navigationItem.rightBarButtonItems = [b1,b2]
         let b3 = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(logOut))
         self.navigationItem.leftBarButtonItem = b3
+        mapView.delegate = self
         
     }
     
@@ -180,16 +181,16 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             
             if let open = view.annotation?.subtitle{
          if let url = URL(string: open!){
-         if UIApplication.shared.canOpenURL(url){
-         UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            if UIApplication.shared.canOpenURL(url){
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }else{
+                self.displayAlert(error: "URL can't be opened.")
+            }
          }else{
-         self.displayAlert(error: "URL can't be opened.")
-         }
-         }else{
-         self.displayAlert(error: "URL can't be opened.")
+            self.displayAlert(error: "URL can't be opened.")
          }
         var urlString = view.annotation?.subtitle!
-        let url = URL(string: urlString!)
+        var url = URL(string: urlString!)
         UIApplication.shared.open(url!, options: [:], completionHandler: nil)
             }
         }

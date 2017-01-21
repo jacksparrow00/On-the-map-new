@@ -97,6 +97,7 @@ class TableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         
         /*UIApplication.shared.open(URL(string: students[indexPath.row].mediaURL)!, options: [:], completionHandler: nil)*/
         let student = StudentShared.sharedInstance.students[(indexPath as NSIndexPath).row]

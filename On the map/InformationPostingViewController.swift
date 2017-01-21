@@ -11,6 +11,7 @@ import MapKit
 
 class InformationPostingViewController: UIViewController, UITextFieldDelegate,MKMapViewDelegate {
     var pinPlace: CLPlacemark!
+    
     @IBOutlet weak var linkTextfield: UITextField!
     @IBOutlet weak var whereAreYouLabel: UILabel!
     @IBOutlet weak var studyingLabel: UILabel!
@@ -42,8 +43,8 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate,MK
         locationTextfield.isHidden = !enable
     }
     
+
     @IBAction func cancelButton(_ sender: Any) {
-        
         //brings back to map view controller
         dismiss(animated: true, completion: nil)
     }
@@ -54,25 +55,26 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate,MK
             displayAlert(error: "Please enter a location")
             return
         }
-        performUIUpdatesOnMain {
-            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        
             
-            //start geocoding the string mentioned for location
-            let geocoder = CLGeocoder()
-            geocoder.geocodeAddressString(self.locationTextfield.text!) { (results, error) in
-                print("Geocoding address")
-                guard error == nil else{
-                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                    self.displayAlert(error: "Sorry there was an error with your request")
-                    return
-                }
+        //start geocoding the string mentioned for location
+        let geocoder = CLGeocoder()
+        geocoder.geocodeAddressString(self.locationTextfield.text!) { (results, error) in
+            print("Geocoding address")
+            guard error == nil else{
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                self.displayAlert(error: "Sorry there was an error with your request")
+                return
+            }
+        
+            guard (results?.isEmpty) == false else{                 //find whether there is any data recieved
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                self.displayAlert(error: "Sorry we couldn't find the specified location")
+                return
+            }
                 
-                guard (results?.isEmpty) == false else{                 //find whether there is any data recieved
-                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                    self.displayAlert(error: "Sorry we couldn't find the specified location")
-                    return
-                }
-                
+            performUIUpdatesOnMain {
+                UIApplication.shared.isNetworkActivityIndicatorVisible = true
                 self.pinPlace = results![0]
                 self.configureUI(enable: false)
                 self.mapViewOutlet.showAnnotations([MKPlacemark(placemark: self.pinPlace)] , animated: true)        //annotate the map according to the location specified
@@ -83,8 +85,6 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate,MK
             }
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
         }
-        
-        
     }
     
     func postStatus(){
@@ -149,10 +149,13 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate,MK
         userModel.mapString = self.locationTextfield.text!
         userModel.mediaURL = self.linkTextfield.text!
     }
+    
+    
     @IBAction func submitButton(_ sender: Any) {
         postStatus()
     }
-    @IBAction func findOnTheMapButton(_ sender: Any) {
+    
+    @IBAction func locationFinder(_ sender: Any) {
         getLocation()
     }
     

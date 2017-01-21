@@ -28,7 +28,7 @@ class ParseAPIClient: NSObject{
             }
             
             guard error == nil else{
-                sendError(errorString: "Your request returned an error \(error)")
+                sendError(errorString: "Your request returned an error \(error?.localizedDescription)")
                 return
             }
             
@@ -64,7 +64,7 @@ class ParseAPIClient: NSObject{
             }
             
             guard error == nil else{
-                sendError(errorString: "Your request returned an error \(error)")
+                sendError(errorString: "Your request returned an error \(error?.localizedDescription)")
                 return
             }
             
@@ -101,7 +101,7 @@ class ParseAPIClient: NSObject{
             }
             
             guard error == nil else{
-                sendError(errorString: "Your request returned an error \(error)")
+                sendError(errorString: "Your request returned an error: \(error?.localizedDescription)")
                 return
             }
             
@@ -139,7 +139,7 @@ class ParseAPIClient: NSObject{
             }
             
             guard error == nil else{
-                sendError(errorString: "Your request returned an error \(error)")
+                sendError(errorString: "Your request returned an error \(error?.localizedDescription)")
                 return
             }
             

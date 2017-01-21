@@ -28,7 +28,7 @@ class UdacityAPIClient: NSObject{
             }
             
             guard error == nil else{
-                sendError(errorString: "Your request returned an error: \(error)")
+                sendError(errorString: "Your request returned an error : \(error?.localizedDescription)")
                 return
             }
             
@@ -79,7 +79,7 @@ class UdacityAPIClient: NSObject{
             }
             
             guard error == nil else{
-                sendError(errorString: "Your request returned an error: \(error)")
+                sendError(errorString: "Your request returned an error: \(error?.localizedDescription)")
                 return
             }
             
@@ -126,7 +126,7 @@ class UdacityAPIClient: NSObject{
             }
             
             guard error == nil else{
-                sendError(errorString: "Your request returned an error: \(error)")
+                sendError(errorString: "Your request returned an error: \(error?.localizedDescription)")
                 return
             }
             
