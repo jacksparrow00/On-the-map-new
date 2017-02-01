@@ -63,7 +63,7 @@ class LoginViewController: UIViewController {
             print("In taskForPostMethod")
             if error == nil{
             guard let account = data?["account"] as? [String:Any] else{     //find account key in the parsed data
-                self.displayAlert(error: "Couldn't find the account key")
+                self.displayAlert(error: "The username/password is incorrect. Please try again.")
                 self.setUIEnabled(enabled: true)
                 return
             }

@@ -47,7 +47,9 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate,MK
     @IBAction func cancelButton(_ sender: Any) {
         //brings back to map view controller
         dismiss(animated: true, completion: nil)
+        
     }
+    
     
     func getLocation(){
         print("Getting location")
@@ -56,6 +58,7 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate,MK
             return
         }
         
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
             
         //start geocoding the string mentioned for location
         let geocoder = CLGeocoder()
@@ -82,8 +85,9 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate,MK
                 if userModel.mediaURL.isEmpty == false{
                     self.linkTextfield.text = userModel.mediaURL
                 }
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
             }
-            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            
         }
     }
     
